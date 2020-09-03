@@ -92,7 +92,7 @@ We'll update both the Web API's appsettings.json file along with the web.config 
 1. Open .\TodoList-WebAPI\appsettings.json
 2. Add your Web API App Registration information where the placeholders are, for client id, tenant name, and tenant id.
 
-![Web API Settings](images/webapisettings.PNG)
+![Web API Settings](images/WebApiSettings.PNG)
 
 3. Save appsettings.json
 
@@ -101,7 +101,7 @@ We'll update both the Web API's appsettings.json file along with the web.config 
 1. Open .\WebApp\web.config
 2. Add MVC App Registration info **AND** Web API app registration info to the file. Replace items like your mvc client id, secret, tenant name along with your web api client id in this file.
 
-![MVC App Settings](images/mvcappsettings.PNG) 
+![MVC App Settings](images/MVCAppSettings.PNG) 
 
 3. Save web.config
 
@@ -117,9 +117,9 @@ After updating your appsettings.json and web.config files, you can run the proje
 
 Navigating to https://localhost:44326, you'll be prompted for consent to use some MS Graph permissions (this is from the mail app aspects from the demo app that I used for this sample). Also note that your O365 user should also be trying to log in to this app. Accept the consent and proceed to the main page. You'll see that your credentials are now displaying on the app page.
 
-![Azure AD Consent Page](images/o365credconsent.png)
+![Azure AD Consent Page](images/o365CredConsent.PNG)
 
-![MVC App Azure AD SSO](images/MVCAppCredsSSO.png)
+![MVC App Azure AD SSO](images/MVCAppCredsSSO.PNG)
 
 **NOTE** This requires that your O365 tenant and your app registration tenants are the SAME. If they're not, then you'll need to create a multi-tenant app registration, which is a sample I'll build out later in another repo.
 
