@@ -24,12 +24,12 @@ This sample combines two Microsoft Identity samples:
 
 1.  Go to Azure -> Azure Active Directory -> App Registrations
 2.  Create a new App Registration, providing a name and select that Supported Account Types are "Accounts in this organizational directory only".
-    ![Create web api app reg](.\images\WebApiAppReg.PNG)
+    ![Create web api app reg](images/WebApiAppReg.PNG)
 3.  Clicking 'Register' on the new App Registration page takes you to the Overview page. Capture the Application ID (aka the Client ID) and the Tenant ID from this page.
 4.  In order to restrict clients from calling this web api to those that have certain roles, we'll create scopes for this app registration.
 
     Go to the 'Expose an API' in your App Registration blade. No Application ID URI has been set yet, so click 'Set'. Accept the default URI value (which is your client id).
-    ![Define app id uri](.\images\WebApiAppIdUri.PNG)
+    ![Define app id uri](images/WebApiAppIdUri.PNG)
 
 5.  Now we'll define scopes in the App's Manifest. CLick on 'Manifest' in the App Registration blade. You should see a JSON document that has an empty "appRoles" element. Update the "appRoles" element to have one or more roles defined, as such:
 
@@ -69,17 +69,17 @@ This sample combines two Microsoft Identity samples:
 
 1.  Now we'll create an app registration for the MVC Web App. Go back to your Azure AD tenant, and select App Registrations and click New Registration.
 2.  Name your app, select "Accounts in this organizational directory only", and add "https://localhost:44326" for the Redirect URI.
-    ![MVC App Reg](.\images\MVCAppReg.png)
+    ![MVC App Reg](images/MVCAppReg.png)
 
         Clicking 'Register' takes you to the Overview page of your app registration. Note the Application (Client) ID.
 
 3.  Click on Authentication on the App Registration blade. Under Implicit grant, check the "ID Tokens" checkbox. Click Save.
 4.  Click on Certificates & Secrets. Under Client Secrets, click "+ New Client Secret". Name it, specify how long you want it to be active, and click Add. You'll see the secret show up in your list of Client Secrets. Copy the Secret Value as you won't have an opportunity to access it again. Save the secret value off where you can use it later.
 5.  Click on Token Configuration, click on "+ Add Optional Claim" and select ID token. I added email, family_name, and given_name for the ID token. When you do this, you will have to have MS Graph permissions added to your app registration, so Azure will add those first and then you'll have to add those optional attributes (email, family_name, given_name) again. If you're successful, you should see the three optional claims listed.
-    ![MVC App Optional Claims](.\images\MVCAppOptClaims.png)
+    ![MVC App Optional Claims](images/MVCAppOptClaims.png)
 6.  Click on API Permissions. Here we'll assign the MVC App the roles it needs to call the Web API app (along with granting admin consent for the MS Graph operations).
     - Click on "+ Add A Permission". A side panel swings out. Select "My APIs" and you should see your Web API app listed. Click on it. The next page in the panel should have "Application Permissions" selected and then your Web API roles that you defined in the Manifest in step 5 for the Web API registration should show up. Select the roles you want to assign to the MVC Web App. (I selected both.) Click "Add Permissions" to save.
-      ![Assign Roles](.\images\MVCAppRoleAssign.png)
+      ![Assign Roles](images/MVCAppRoleAssign.png)
     - After clicking "Add Permissions", you'll see your assigned APIs. You should then click the "Grant admin consent for <tenant name>" in order to grant admin consent for your Web API permissions.
 7.  That's it for MVC App Registration! Now let's configure the code.
 
@@ -92,7 +92,7 @@ We'll update both the Web API's appsettings.json file along with the web.config 
 1. Open .\TodoList-WebAPI\appsettings.json
 2. Add your Web API App Registration information where the placeholders are, for client id, tenant name, and tenant id.
 
-![Web API Settings](.\images\webapisettings.png)
+![Web API Settings](images/webapisettings.png)
 
 3. Save appsettings.json
 
@@ -101,7 +101,9 @@ We'll update both the Web API's appsettings.json file along with the web.config 
 1. Open .\WebApp\web.config
 2. Add MVC App Registration info **AND** Web API app registration info to the file. Replace items like your mvc client id, secret, tenant name along with your web api client id in this file.
 
-![MVC App Settings](.\images\mvcappsettings.png) 3. Save web.config
+![MVC App Settings](images/mvcappsettings.png) 
+
+3. Save web.config
 
 ### Open Browser and Test
 
@@ -109,15 +111,15 @@ Before running the app, let's show how your O365 logged in token flows to this a
 
 Open up an In-Private or Incognito browser window. Navigate to https://portal.office.com. You should be prompted for your O365 credentials. Log in and you should see a page similar to this:
 
-![O365 Portal Page](.\images\o365portal.png)
+![O365 Portal Page](images/o365portal.png)
 
 After updating your appsettings.json and web.config files, you can run the project. From Visual Studio 2019, you can start both projects. The Web API should run at https://localhost:44372, and the MVC App should run at https://localhost:44326.
 
 Navigating to https://localhost:44326, you'll be prompted for consent to use some MS Graph permissions (this is from the mail app aspects from the demo app that I used for this sample). Also note that your O365 user should also be trying to log in to this app. Accept the consent and proceed to the main page. You'll see that your credentials are now displaying on the app page.
 
-![Azure AD Consent Page](.\images\o365credconsent.png)
+![Azure AD Consent Page](images/o365credconsent.png)
 
-![MVC App Azure AD SSO](.\images\MVCAppCredsSSO.png)
+![MVC App Azure AD SSO](images/MVCAppCredsSSO.png)
 
 **NOTE** This requires that your O365 tenant and your app registration tenants are the SAME. If they're not, then you'll need to create a multi-tenant app registration, which is a sample I'll build out later in another repo.
 
@@ -125,7 +127,7 @@ Now you can click on the 'About' menu link to get some details about your ID Tok
 
 Lastly, you can click on the 'Call TODO List' menu item which calls the Web API service on https://localhost:44372. When you do that, you'll see that user's email address is passed to the service and returned as part of the payload.
 
-![MVC App Calls Web API](.\images\MVCAppWebApiCall.png)
+![MVC App Calls Web API](images/MVCAppWebApiCall.png)
 
 ## What's Happening in the Code?
 
